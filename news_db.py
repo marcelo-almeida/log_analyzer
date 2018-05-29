@@ -3,8 +3,10 @@
 
 from base_db import execute_query
 
-# template for queries of the most popular
-most_popular_template = '"{data}" - {count} views"'
+# template for queries of the most popular articles
+most_popular_articles_template = '"{article}" - {count} views'
+# template for queries of the most popular authors
+most_popular_authors_template = '{author} - {count} views'
 # template for queries of the failure percentage
 failure_percentage_template = '{date} - {percentage}% errors'
 
@@ -18,8 +20,8 @@ def get_most_popular_articles():
     article_list = []
     # processing result of query
     for result in query_results:
-        article = most_popular_template.format(
-            data=result[0],
+        article = most_popular_articles_template.format(
+            article=result[0],
             count=str(result[1])
         )
         article_list.append(article)
@@ -39,8 +41,8 @@ def get_most_popular_authors():
     author_list = []
     # processing result of query
     for result in query_results:
-        author = most_popular_template.format(
-            data=result[0],
+        author = most_popular_authors_template.format(
+            author=result[0],
             count=str(result[1])
         )
         author_list.append(author)
