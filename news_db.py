@@ -5,8 +5,9 @@ import psycopg2
 
 DBNAME = 'news'
 
-most_popular_articles = '"{article}" - {count} views"'
-most_popular_authors = '{author} - {count} views'
+most_popular_template = '"{data}" - {count} views"'
+failure_percentage_template = '{date} - {percentage}% errors'
+
 
 def execute_query(query):
     db = psycopg2.connect(database=DBNAME)
@@ -22,8 +23,8 @@ def get_most_popular_articles():
     query_results = execute_query(query)
     article_list = []
     for result in query_results:
-        article = most_popular_articles.format(
-            article=result[0],
+        article = most_popular_template.format(
+            data=result[0],
             count=str(result[1])
         )
         article_list.append(article)
@@ -41,9 +42,30 @@ def get_most_popular_authors():
     query_results = execute_query(query)
     author_list = []
     for result in query_results:
-        author = most_popular_authors.format(
-            author=result[0],
+        author = most_popular_template.format(
+            data=result[0],
             count=str(result[1])
         )
         author_list.append(author)
     return author_list
+
+
+def get_failure_percentage():
+    query = "SELECT requests.date AS date_requisitions, " \
+            "failures.miss/CAST(requests.total AS FLOAT) * 100 AS percentage" \
+            " FROM (SELECT CAST(time AS DATE) AS date, " \
+            "count(*) AS total FROM log GROUP BY CAST(time AS DATE) " \
+            ")requests JOIN (SELECT CAST(time AS DATE)  AS date, " \
+            "count(*) AS miss FROM log WHERE status != '200 OK' " \
+            "GROUP BY CAST(time AS DATE))failures " \
+            "ON requests.date = failures.date WHERE " \
+            "failures.miss/CAST(requests.total AS FLOAT) >= 0.01"
+    query_results = execute_query(query)
+    failure_list = []
+    for result in query_results:
+        failure = failure_percentage_template.format(
+            date=result[0].strftime('%B %d, %Y'),
+            percentage="{0:.2f}".format(result[1])
+        )
+        failure_list.append(failure)
+    return failure_list
