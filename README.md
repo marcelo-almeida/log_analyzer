@@ -36,6 +36,7 @@ This program can analyze data from a database and answer predefined questions
   from the news.py file instead print_question_and_answers()
 ## Copyright
 The database file is not available in this repository, but has been used from udacity's material
+
 It was used the vagrant config from udacity repository
 
   [fullstack-nanodegree-vm](https://github.com/udacity/fullstack-nanodegree-vm)
