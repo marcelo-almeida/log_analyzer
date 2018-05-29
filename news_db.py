@@ -1,23 +1,12 @@
 #!/usr/bin/env python3
 # This Python file uses the following encoding: utf-8
 
-import psycopg2
-
-DBNAME = 'news'
+from base_db import execute_query
 
 # template for queries of the most popular
 most_popular_template = '"{data}" - {count} views"'
 # template for queries of the failure percentage
 failure_percentage_template = '{date} - {percentage}% errors'
-
-
-# execute a query passed by parameter in postgreSQL database
-def execute_query(query):
-    # connect to database
-    db = psycopg2.connect(database=DBNAME)
-    c = db.cursor()
-    c.execute(query)
-    return c.fetchall()
 
 
 # return the three firsts most popular articles in a list
