@@ -15,9 +15,12 @@ This program can analyze data from a database and answer predefined questions
 * In fullstack-nanodegree-vm execute these cmd commands:
 
   `cd vagrant`
+
   `vagrant up`
+
   `vagrant ssh`
 
+* It's necessary have and run the newsdata.sql from udacity's material
 * Clone this repository using these git commands:
 
   `git init`
@@ -25,6 +28,7 @@ This program can analyze data from a database and answer predefined questions
   `git clone https://github.com/marcelo-almeida/log_analyzer.git`
 
 * Copy all python files to vagrant directory
+* init a new vagrant session `vagrant ssh` in a terminal
 * From a vagrant terminal execute this command:
   `python news.py`
 * The result will be shown in the terminal
@@ -32,3 +36,6 @@ This program can analyze data from a database and answer predefined questions
   from the news.py file instead print_question_and_answers()
 ## Copyright
 The database file is not available in this repository, but has been used from udacity's material
+It was used the vagrant config from udacity repository
+
+  [fullstack-nanodegree-vm](https://github.com/udacity/fullstack-nanodegree-vm)
