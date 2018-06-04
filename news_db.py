@@ -51,15 +51,17 @@ def get_most_popular_authors():
 
 # return a list with days that occurs more than 1% of failure in requests
 def get_failure_percentage():
-    query = "SELECT requests.date AS date_requisitions, " \
-            "failures.miss/CAST(requests.total AS FLOAT) * 100 AS percentage" \
-            " FROM (SELECT CAST(time AS DATE) AS date, " \
-            "count(*) AS total FROM log GROUP BY CAST(time AS DATE) " \
-            ")requests JOIN (SELECT CAST(time AS DATE)  AS date, " \
-            "count(*) AS miss FROM log WHERE status != '200 OK' " \
-            "GROUP BY CAST(time AS DATE))failures " \
-            "ON requests.date = failures.date WHERE " \
-            "failures.miss/CAST(requests.total AS FLOAT) >= 0.01"
+    query = """
+            SELECT requests.date AS date_requisitions, 
+            failures.miss/CAST(requests.total AS FLOAT) * 100 AS percentage
+             FROM (SELECT CAST(time AS DATE) AS date, 
+            count(*) AS total FROM log GROUP BY CAST(time AS DATE) 
+            )requests JOIN (SELECT CAST(time AS DATE)  AS date, 
+            count(*) AS miss FROM log WHERE status != '200 OK' 
+            GROUP BY CAST(time AS DATE))failures 
+            ON requests.date = failures.date WHERE 
+            failures.miss/CAST(requests.total AS FLOAT) >= 0.01
+            """
     query_results = execute_query(query)
     failure_list = []
     # processing result of query

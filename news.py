@@ -38,5 +38,6 @@ def save_question_and_answers():
     output_file.close()
 
 
-print_question_and_answers()
-# save_question_and_answers()
+if __name__ == '__main__':
+    print_question_and_answers()
+    # save_question_and_answers()

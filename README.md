@@ -37,6 +37,8 @@ This program can analyze data from a database and answer predefined questions
 ## Copyright
 The database file is not available in this repository, but has been used from udacity's material
 
+    [download here](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip)
+
 It was used the vagrant config from udacity repository
 
   [fullstack-nanodegree-vm](https://github.com/udacity/fullstack-nanodegree-vm)
